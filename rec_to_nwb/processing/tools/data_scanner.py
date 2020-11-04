@@ -17,6 +17,9 @@ class DataScanner:
         self.animal_name = animal_name
         self.nwb_metadata = nwb_metadata
 
+        print(self.data_path)
+        print(self.animal_name)
+
         self.data = None
 
     @beartype
@@ -37,11 +40,12 @@ class DataScanner:
 
     @beartype
     def get_all_data_from_dataset(self, date: str) -> list:
-        self.__check_if_path_exists(self.data_path + '/' + self.animal_name + '/preprocessing/' + date)
         path_curr = os.path.join(self.data_path,
                                  self.animal_name,
                                  'preprocessing',
                                  date)
+        self.__check_if_path_exists(path_curr)
+
         return os.listdir(path_curr)
 
     @beartype
@@ -82,7 +86,7 @@ class DataScanner:
                     if dataset_name == dataset.name:
                         path_curr = os.path.join(date_path,
                                                  directory,
-                                                 )
+                                                 os.sep)
                         dataset.add_data_to_dataset(path_curr, dir_last_part.pop())
         return datasets
 
