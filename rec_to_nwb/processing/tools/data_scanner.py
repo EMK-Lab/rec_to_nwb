@@ -62,8 +62,7 @@ class DataScanner:
         if not dates:
             dates = FileSorter.sort_filenames(os.listdir(preprocessing_path))
 
-        path_return = os.path.join(preprocessing_path, dates)
-        return {date: self.__extract_datasets(path_return) for date in dates}
+        return {date: self.__extract_datasets(os.path.join(preprocessing_path, date)) for date in dates}
 
     @staticmethod
     def __extract_datasets(date_path):
