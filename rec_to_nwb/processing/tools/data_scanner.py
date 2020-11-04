@@ -26,7 +26,7 @@ class DataScanner:
                                  self.animal_name,
                                  'preprocessing',
                                  date)
-        directories = os.listdir()
+        directories = os.listdir(path_curr)
         FileSorter.sort_filenames(directories)
         for directory in directories:
             if directory.startswith(date):
@@ -62,7 +62,7 @@ class DataScanner:
         if not dates:
             dates = FileSorter.sort_filenames(os.listdir(preprocessing_path))
 
-        path_return = os.path.join(preprocessing_path, date)
+        path_return = os.path.join(preprocessing_path, dates)
         return {date: self.__extract_datasets(path_return) for date in dates}
 
     @staticmethod
@@ -113,7 +113,8 @@ class DataScanner:
         files = FileSorter.sort_filenames(os.listdir(path))
         for probe_file in files:
             if fnmatch.fnmatch(probe_file, "probe*.yml"):
-                probes.append(path + '/' + probe_file)
+                path_curr = os.path.join(path, probe_file)
+                probes.append(path_curr)
         return probes
 
     def __check_if_path_exists(self, path):
