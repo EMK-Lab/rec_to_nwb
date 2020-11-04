@@ -22,7 +22,11 @@ class DataScanner:
     @beartype
     def get_all_epochs(self, date: str) -> list:
         all_datasets = []
-        directories = os.listdir(self.data_path + '/' + self.animal_name + '/preprocessing/' + date)
+        path_curr = os.path.join(self.data_path,
+                                 self.animal_name,
+                                 'preprocessing',
+                                 date)
+        directories = os.listdir()
         FileSorter.sort_filenames(directories)
         for directory in directories:
             if directory.startswith(date):
@@ -34,7 +38,11 @@ class DataScanner:
     @beartype
     def get_all_data_from_dataset(self, date: str) -> list:
         self.__check_if_path_exists(self.data_path + '/' + self.animal_name + '/preprocessing/' + date)
-        return os.listdir(self.data_path + '/' + self.animal_name + '/preprocessing/' + date)
+        path_curr = os.path.join(self.data_path,
+                                 self.animal_name,
+                                 'preprocessing',
+                                 date)
+        return os.listdir(path_curr)
 
     @beartype
     def extract_data_from_date_folder(self, date: str):
@@ -48,10 +56,14 @@ class DataScanner:
         self.data = {self.animal_name: self.__extract_experiments(self.data_path, self.animal_name, None)}
 
     def __extract_experiments(self, data_path, animal_name, dates):
-        preprocessing_path = data_path + animal_name + '/preprocessing'
+        preprocessing_path = os.path.join(data_path,
+                                          animal_name,
+                                          'preprocessing')
         if not dates:
             dates = FileSorter.sort_filenames(os.listdir(preprocessing_path))
-        return {date: self.__extract_datasets(preprocessing_path + '/' + date) for date in dates}
+
+        path_return = os.path.join(preprocessing_path, date)
+        return {date: self.__extract_datasets(path_return) for date in dates}
 
     @staticmethod
     def __extract_datasets(date_path):
@@ -69,7 +81,10 @@ class DataScanner:
                     existing_datasets.add(dataset_name)
                 for dataset in datasets.values():
                     if dataset_name == dataset.name:
-                        dataset.add_data_to_dataset(date_path + '/' + directory + '/', dir_last_part.pop())
+                        path_curr = os.path.join(date_path,
+                                                 directory,
+                                                 dir_last_part.pop())
+                        dataset.add_data_to_dataset(path_curr)
         return datasets
 
     @beartype
