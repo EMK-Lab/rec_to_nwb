@@ -82,8 +82,8 @@ class DataScanner:
                     if dataset_name == dataset.name:
                         path_curr = os.path.join(date_path,
                                                  directory,
-                                                 dir_last_part.pop())
-                        dataset.add_data_to_dataset(path_curr)
+                                                 )
+                        dataset.add_data_to_dataset(path_curr, dir_last_part.pop())
         return datasets
 
     @beartype
