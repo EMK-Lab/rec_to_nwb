@@ -16,10 +16,6 @@ class DataScanner:
         self.data_path = data_path
         self.animal_name = animal_name
         self.nwb_metadata = nwb_metadata
-
-        print(self.data_path)
-        print(self.animal_name)
-
         self.data = None
 
     @beartype
@@ -31,9 +27,11 @@ class DataScanner:
                                  date)
         directories = os.listdir(path_curr)
         FileSorter.sort_filenames(directories)
+        # print(directories)
         for directory in directories:
             if directory.startswith(date):
                 dataset_name = (directory.split('_')[2] + '_' + directory.split('_')[3]).split('.')[0]
+                # print(dataset_name)
                 if not dataset_name in all_datasets:
                     all_datasets.append(dataset_name)
         return all_datasets
@@ -51,13 +49,16 @@ class DataScanner:
     @beartype
     def extract_data_from_date_folder(self, date: str):
         self.data = {self.animal_name: self.__extract_experiments(self.data_path, self.animal_name, [date])}
+        print(self.data)
 
     @beartype
     def extract_data_from_dates_folders(self, dates: list):
         self.data = {self.animal_name: self.__extract_experiments(self.data_path, self.animal_name, dates)}
+        print(self.data)
 
     def extract_data_from_all_dates_folders(self):
         self.data = {self.animal_name: self.__extract_experiments(self.data_path, self.animal_name, None)}
+        print(self.data)
 
     def __extract_experiments(self, data_path, animal_name, dates):
         preprocessing_path = os.path.join(data_path,
@@ -75,19 +76,26 @@ class DataScanner:
         directories = FileSorter.sort_filenames(os.listdir(date_path))
 
         for directory in directories:
+            #print('directory', directory)
             dir_split = directory.split('_')
             if dir_split[0].isdigit():
                 dir_last_part = dir_split.pop().split('.')
                 dataset_name = dir_split.pop() + '_' + dir_last_part[0]
+                #print('dir_last_part', dir_last_part)
+                #print('dataset_name', dataset_name)
                 if not (dataset_name in existing_datasets):
                     datasets[dataset_name] = Dataset(dataset_name)
                     existing_datasets.add(dataset_name)
                 for dataset in datasets.values():
                     if dataset_name == dataset.name:
+
                         path_curr = os.path.join(date_path,
-                                                 directory,
-                                                 os.sep)
+                                                 directory
+                                                 )
+                        print('path_curr', path_curr)
+                        print('dir_last_part', dir_last_part)
                         dataset.add_data_to_dataset(path_curr, dir_last_part.pop())
+        print(datasets)
         return datasets
 
     @beartype
