@@ -2,6 +2,8 @@ import os
 
 from rec_to_nwb.processing.tools.file_sorter import FileSorter
 
+from pathlib import Path
+
 
 class Dataset:
     def __init__(self, name):
@@ -28,5 +30,6 @@ class Dataset:
     def get_continuous_time(self):
         for file in self.get_all_data_from_dataset('time'):
             if file.endswith('continuoustime.dat'):
-                return self.get_data_path_from_dataset('time') + file
+                print('cont. time output', self.get_data_path_from_dataset('time') + file)
+                return str(Path(f"{self.get_data_path_from_dataset('time')}/{file}"))
         return None
