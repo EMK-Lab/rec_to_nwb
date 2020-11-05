@@ -5,6 +5,8 @@ from rec_to_nwb.processing.nwb.components.position.pos_data_manager import PosDa
 from rec_to_nwb.processing.nwb.components.position.pos_timestamp_manager import PosTimestampManager
 from rec_to_nwb.processing.tools.beartype.beartype import beartype
 
+import os
+
 
 class FlPositionExtractor:
 
@@ -17,10 +19,11 @@ class FlPositionExtractor:
         all_pos = []
         continuous_time = []
         for dataset in self.datasets:
-            data_from_current_dataset = [
-                dataset.get_data_path_from_dataset('pos') + pos_file for pos_file in
-                dataset.get_all_data_from_dataset('pos') if
-                (pos_file.endswith('.pos_online.dat'))]
+            data_from_current_dataset = [os.path.join(dataset.get_data_path_from_dataset('pos'), pos_file) for pos_file
+                                         in
+                                         dataset.get_all_data_from_dataset('pos') if
+                                         (pos_file.endswith('.pos_online.dat'))]
+
             if dataset.get_continuous_time() is None:
                 raise MissingDataException(
                     'Incomplete data in dataset '
@@ -31,6 +34,7 @@ class FlPositionExtractor:
         return all_pos, continuous_time
 
     def get_positions(self):
+        print('all_pos', self.all_pos)
         pos_datas = [
             PosDataManager(directories=[single_pos])
             for single_pos in self.all_pos
