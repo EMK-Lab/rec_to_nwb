@@ -5,6 +5,8 @@ from rec_to_nwb.processing.nwb.components.mda.mda_content import MdaContent
 from rec_to_nwb.processing.nwb.components.mda.mda_data_manager import MdaDataManager
 from rec_to_nwb.processing.nwb.components.mda.mda_timestamp_manager import MdaTimestampDataManager
 
+from pathlib import Path
+
 
 class FlMdaExtractor:
 
@@ -46,7 +48,7 @@ class FlMdaExtractor:
 
     @staticmethod
     def __get_data_from_current_dataset(dataset):
-        return [dataset.get_data_path_from_dataset('mda') + mda_file for mda_file in
+        return [str(Path(f"{dataset.get_data_path_from_dataset('mda')}/{mda_file}")) for mda_file in
                 dataset.get_all_data_from_dataset('mda') if
                 (mda_file.endswith('.mda') and not mda_file.endswith('timestamps.mda'))]
 
