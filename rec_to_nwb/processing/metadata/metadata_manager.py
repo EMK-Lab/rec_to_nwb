@@ -14,7 +14,7 @@ class MetadataManager:
     """
     
     @beartype
-    def __init__(self, metadata_path: str, probes_paths: list):
+    def __init__(self, metadata_path, probes_paths: list):
         self.__validate(metadata_path, probes_paths)
 
         self.probes_paths = probes_paths
