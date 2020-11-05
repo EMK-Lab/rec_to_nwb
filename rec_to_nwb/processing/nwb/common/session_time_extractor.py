@@ -2,6 +2,7 @@ from datetime import datetime
 
 from dateutil.tz import tzlocal
 from rec_to_binaries.read_binaries import readTrodesExtractedDataFile
+from pathlib import Path
 
 
 class SessionTimeExtractor:
@@ -13,9 +14,9 @@ class SessionTimeExtractor:
         self.dataset_names = dataset_names
 
     def get_session_start_time(self):
-        continuous_time_file = \
-            self.datasets[0].data['time'] + '/' + self.date + '_' + self.animal_name + '_' \
-            + self.dataset_names[0] + '.continuoustime.dat'
+        continuous_time_file = str(Path(f"{self.datasets[0].data['time']}/"
+                                        f"{self.date}_{self.animal_name}_"
+                                        f"{self.dataset_names[0] }.continuoustime.dat"))
         continuous_time = SessionTimeExtractor.__read_continuous_time(continuous_time_file)
         session_start_timestamp = continuous_time['system_time_at_creation']
         session_start_datetime = datetime.fromtimestamp(int(session_start_timestamp)/1E3, tzlocal())
