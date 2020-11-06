@@ -24,7 +24,7 @@ class Dataset:
     def get_mda_timestamps(self):
         for file in self.get_all_data_from_dataset('mda'):
             if file.endswith('timestamps.mda'):
-                return str(Path(f"{self.get_data_path_from_dataset('time')}/{file}"))
+                return str(Path(f"{self.get_data_path_from_dataset('mda')}/{file}"))
         return None
 
     def get_continuous_time(self):
