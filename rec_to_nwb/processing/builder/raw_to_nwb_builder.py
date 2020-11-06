@@ -240,7 +240,7 @@ class RawToNWBBuilder:
     def cleanup(self):
         """Remove all temporary files structure from preprocessing folder"""
 
-        preprocessing = self.data_path + '/' + self.animal_name + '/preprocessing'
+        preprocessing = str(Path(self.data_path) / self.animal_name / 'preprocessing')
         if os.path.exists(preprocessing):
             shutil.rmtree(preprocessing)
 
