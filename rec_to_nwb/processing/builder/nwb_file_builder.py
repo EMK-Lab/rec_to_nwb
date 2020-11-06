@@ -265,7 +265,7 @@ class NWBFileBuilder:
             ),
         )
 
-        self.processing_module_originator.make(nwb_content)
+        #self.processing_module_originator.make(nwb_content)
 
  
         if 'associated_files' in self.metadata:
