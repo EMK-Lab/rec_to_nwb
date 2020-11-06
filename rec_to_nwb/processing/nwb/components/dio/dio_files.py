@@ -26,5 +26,5 @@ class DioFiles:
         for file in files:
             if file.endswith('.dat'):
                 split_filename = file.split('.')
-                dio_dict[split_filename[-2].split('_')[1]] = directory + '/' + file
+                dio_dict[split_filename[-2].split('_')[1]] = str(Path(f'{directory}/{file}'))
         return dio_dict
