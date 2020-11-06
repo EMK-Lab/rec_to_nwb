@@ -1,6 +1,7 @@
 import logging.config
 import os
 import shutil
+from pathlib import Path
 
 from rec_to_binaries import extract_trodes_rec_file
 
@@ -153,7 +154,7 @@ class RawToNWBBuilder:
                 animal_name=self.animal_name,
                 date=date,
                 nwb_metadata=self.nwb_metadata,
-                output_file=self.output_path + self.animal_name + date + ".nwb",
+                output_file=str(Path(f"{self.output_path}/{self.animal_name}{date}.nwb")),
                 process_mda=self.extract_mda,
                 process_dio=self.extract_dio,
                 process_analog=self.extract_analog,
