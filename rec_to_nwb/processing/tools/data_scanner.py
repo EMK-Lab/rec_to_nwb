@@ -114,7 +114,7 @@ class DataScanner:
     def get_mda_timestamps(self, animal: str, date: str, dataset: str):
         for file in self.data[animal][date][dataset].get_all_data_from_dataset('mda'):
             if file.endswith('timestamps.mda'):
-                return self.data[animal][date][dataset].get_data_path_from_dataset('mda') + file
+                return str(Path(f"{self.data[animal][date][dataset].get_data_path_from_dataset('mda')}/{file}"))
         return None
 
     @staticmethod
