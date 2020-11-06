@@ -1,5 +1,6 @@
 import fnmatch
 import os
+from pathlib import Path
 
 from rec_to_nwb.processing.exceptions.missing_data_exception import MissingDataException
 from rec_to_nwb.processing.metadata.metadata_manager import MetadataManager
