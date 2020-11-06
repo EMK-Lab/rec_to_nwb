@@ -267,6 +267,7 @@ class NWBFileBuilder:
 
         self.processing_module_originator.make(nwb_content)
 
+ 
         if 'associated_files' in self.metadata:
             self.associated_files_originator.make(nwb_content)
 
@@ -292,19 +293,14 @@ class NWBFileBuilder:
             nwb_content, probes, valid_map_dict['electrode_groups']
         )
 
-        # self.electrodes_originator.make(
-        #     nwb_content, electrode_groups, valid_map_dict['electrodes'], valid_map_dict['electrode_groups']
-        # )
+        self.electrodes_originator.make(
+            nwb_content, electrode_groups, valid_map_dict['electrodes'], valid_map_dict['electrode_groups']
+        )
 
-        # self.electrodes_extension_originator.make(nwb_content, valid_map_dict['electrodes'])
+        self.electrodes_extension_originator.make(nwb_content, valid_map_dict['electrodes'])
 
         self.epochs_originator.make(nwb_content)
 
-        #self.processing_module_originator.make(nwb_content)
-
-        #self.position_originator.make(nwb_content)
-
-        #self.video_files_originator.make(nwb_content)
         self.sample_count_timestamp_corespondence_originator.make(nwb_content)
 
         self.task_originator.make(nwb_content)
@@ -313,6 +309,9 @@ class NWBFileBuilder:
 
         if self.process_dio:
             self.dio_originator.make(nwb_content)
+
+        if self.process_mda:
+            self.mda_originator.make(nwb_content)
 
         if self.process_analog:
             self.analog_originator.make(nwb_content)
