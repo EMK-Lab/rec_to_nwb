@@ -138,7 +138,7 @@ class NWBFileBuilder:
                                    'analog': process_analog}
 
         rec_files_list = RecFileFinder().find_rec_files(
-            path=data_path / self.animal_name / 'raw' / self.date
+            path=str(data_path / self.animal_name / 'raw' / self.date)
         )
 
         header_file = HeaderProcessor.process_headers(rec_files_list)
