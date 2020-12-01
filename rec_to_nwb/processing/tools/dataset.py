@@ -23,13 +23,15 @@ class Dataset:
 
     def get_mda_timestamps(self):
         for file in self.get_all_data_from_dataset('mda'):
+            print('get_mda_timestamps', file)
             if file.endswith('timestamps.mda'):
                 return str(Path(f"{self.get_data_path_from_dataset('mda')}/{file}"))
         return None
 
     def get_continuous_time(self):
         for file in self.get_all_data_from_dataset('time'):
+            print('get_cont_timestamps', file)
             if file.endswith('continuoustime.dat'):
-                print('cont. time output', self.get_data_path_from_dataset('time') + file)
+                print('cont. time output', str(Path(f"{self.get_data_path_from_dataset('time')}/{file}")))
                 return str(Path(f"{self.get_data_path_from_dataset('time')}/{file}"))
         return None
