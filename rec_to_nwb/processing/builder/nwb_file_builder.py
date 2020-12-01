@@ -205,9 +205,9 @@ class NWBFileBuilder:
         self.header_device_originator = HeaderDeviceOriginator(self.header, self.metadata)
         self.probes_originator = ProbeOriginator(self.device_factory, self.device_injector, self.probes)
         self.camera_sample_frame_counts_originator = CameraSampleFrameCountsOriginator(
-            self.data_path + "/" + animal_name + "/raw/" + self.date + "/")
+            str(self.data_path / animal_name / 'raw' / self.date))
         self.video_files_originator = VideoFilesOriginator(
-            self.data_path + "/" + animal_name + "/raw/" + self.date + "/",
+            str(self.data_path / animal_name / 'raw' / self.date),
             self.video_path,
             self.metadata["associated_video_files"],
         )
