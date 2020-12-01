@@ -51,6 +51,7 @@ from rec_to_nwb.processing.validation.path_validator import PathValidator
 from rec_to_nwb.processing.validation.preprocessing_validator import PreprocessingValidator
 from rec_to_nwb.processing.validation.task_validator import TaskValidator
 from rec_to_nwb.processing.validation.validation_registrator import ValidationRegistrator
+from pathlib import Path
 
 path = os.path.dirname(os.path.abspath(__file__))
 logging.config.fileConfig(fname=str(path) + '/../../logging.conf', disable_existing_loggers=False)
@@ -112,7 +113,7 @@ class NWBFileBuilder:
 
         self.animal_name = animal_name
         self.date = date
-        self.data_path = data_path
+        self.data_path = Path(data_path)
         self.metadata = nwb_metadata.metadata
         metadata_section_validator = MetadataSectionValidator(self.metadata)
         metadata_section_validator.validate_sections()
@@ -137,10 +138,7 @@ class NWBFileBuilder:
                                    'analog': process_analog}
 
         rec_files_list = RecFileFinder().find_rec_files(
-            path=(self.data_path
-                  + '/' + self.animal_name
-                  + '/raw/'
-                  + self.date)
+            path=(data_path / self.animal_name / 'raw' / self.date)
         )
 
         header_file = HeaderProcessor.process_headers(rec_files_list)
@@ -150,12 +148,12 @@ class NWBFileBuilder:
             self.header = Header(header_file)
         self.data_scanner = DataScanner(data_path, animal_name, nwb_metadata)
         self.dataset_names = self.data_scanner.get_all_epochs(date)
-        full_data_path = data_path + '/' + animal_name + '/preprocessing/' + date
+        full_data_path = data_path / animal_name / 'preprocessing' / date
 
         validation_registrator = ValidationRegistrator()
         validation_registrator.register(NTrodeValidator(self.metadata, self.header, self.probes))
         validation_registrator.register(PreprocessingValidator(
-            full_data_path,
+            str(full_data_path),
             self.dataset_names,
             data_types_for_scanning
         ))
