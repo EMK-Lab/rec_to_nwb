@@ -43,7 +43,7 @@ class FlMdaExtractor:
 
         if not self.__data_exist(data_from_current_dataset, dataset):
             raise MissingDataException("Incomplete data in dataset " + str(dataset.name) + ", missing mda files")
-
+        print('data from current dataset', data_from_current_dataset)
         print('mda timestamps', [dataset.get_mda_timestamps()])
         print('cont timestamps', dataset.get_continuous_time())
         return data_from_current_dataset, [dataset.get_mda_timestamps()], dataset.get_continuous_time()
