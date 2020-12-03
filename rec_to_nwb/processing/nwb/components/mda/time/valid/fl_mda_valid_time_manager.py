@@ -46,7 +46,7 @@ class FlMdaValidTimeManager:
 
     @staticmethod
     def __get_mda_timestamps(nwb_content):
-        print('MDA timestamps 1st value:', nwb_content.acquisition['e-series'].timestamps[0])
+        print('MDA timestamps 1st value:', nwb_content.acquisition['e-series'].timestamps)
         try:
             timestamps = np.array(
                 nwb_content.acquisition['e-series'].timestamps)
