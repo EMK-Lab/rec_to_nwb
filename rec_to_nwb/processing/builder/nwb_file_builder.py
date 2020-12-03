@@ -52,6 +52,7 @@ from rec_to_nwb.processing.validation.preprocessing_validator import Preprocessi
 from rec_to_nwb.processing.validation.task_validator import TaskValidator
 from rec_to_nwb.processing.validation.validation_registrator import ValidationRegistrator
 from pathlib import Path
+import numpy as np
 
 path = os.path.dirname(os.path.abspath(__file__))
 logging.config.fileConfig(fname=str(path) + '/../../logging.conf', disable_existing_loggers=False)
