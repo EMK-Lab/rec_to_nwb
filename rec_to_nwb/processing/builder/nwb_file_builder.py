@@ -330,6 +330,7 @@ class NWBFileBuilder:
 
         logger.info(self.output_file + ' file has been created.')
         print(self.output_file + ' file has been created.')
+        print('file size:', Path(self.output_file).stat().st_size)
         return self.output_file
 
     def __build_corrupted_data_manager(self):
