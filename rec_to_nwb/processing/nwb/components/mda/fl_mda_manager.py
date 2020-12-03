@@ -12,4 +12,5 @@ class FlMdaManager:
     def get_data(self):
         electrode_table_region = self.__table_region_builder.build()
         data = self.__fl_mda_extractor.get_data()
+        print('FlMdaData:', data)
         return self.__fl_mda_builder.build(electrode_table_region, data)
