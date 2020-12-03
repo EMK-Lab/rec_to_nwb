@@ -5,7 +5,7 @@ class ElectricalSeriesCreator:
 
     @classmethod
     def create_mda(cls, fl_mda):
-        print('mda timestamps:', fl_mda.mda_data.mda_timestamps)
+        print('mda timestamps:', fl_mda.mda_data.mda_timestamps[0])
         return ecephys.ElectricalSeries(
             name="e-series",
             data=fl_mda.mda_data.mda_data,
