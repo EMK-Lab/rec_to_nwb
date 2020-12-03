@@ -311,7 +311,7 @@ class NWBFileBuilder:
 
         if self.process_mda:
             self.mda_originator.make(nwb_content)
-            print('MDA timestamps length :', np.array(nwb_content.acquisition['e-series'].timestamps[0]).size)
+            print('MDA timestamps length :', np.array(nwb_content.acquisition['e-series'].timestamps).size)
             print('processing mda')
 
         if self.process_analog:
