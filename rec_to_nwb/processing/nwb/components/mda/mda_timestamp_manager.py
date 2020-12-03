@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 class MdaTimestampDataManager(TimestampManager):
     def __init__(self, directories, continuous_time_directories):
+        print('MdaTimestampDataManager:', directories)
+        print('MdaTimestampDataManager:', continuous_time_directories)
         TimestampManager.__init__(self, directories, continuous_time_directories)
 
     def _get_timestamps(self, dataset_id):
