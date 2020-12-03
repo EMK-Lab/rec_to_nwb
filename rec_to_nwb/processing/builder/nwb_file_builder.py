@@ -310,6 +310,7 @@ class NWBFileBuilder:
 
         if self.process_mda:
             self.mda_originator.make(nwb_content)
+            print('processing mda')
 
         if self.process_analog:
             self.analog_originator.make(nwb_content)
@@ -326,6 +327,7 @@ class NWBFileBuilder:
             nwb_fileIO.close()
 
         logger.info(self.output_file + ' file has been created.')
+        print(self.output_file + ' file has been created.')
         return self.output_file
 
     def __build_corrupted_data_manager(self):
@@ -352,7 +354,7 @@ class NWBFileBuilder:
         Returns:
             NWBFile: Return NWBFile content
         """
-
+        print(self.output_file)
         with NWBHDF5IO(path=self.output_file, mode='a') as nwb_file_io:
             nwb_content = nwb_file_io.read()
 
